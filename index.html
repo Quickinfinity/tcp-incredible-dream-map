@@ -630,7 +630,7 @@ body {
   <div class="drag-piece" id="dp-csi" style="left:410px;top:478px;width:22px;height:22px;padding:0;border-radius:0;z-index:10;">
     <svg width="22" height="22" viewBox="0 0 22 22" style="display:block;">
       <polygon points="11,0.5 13.8,7.2 21,7.8 15.5,12.8 17.2,20 11,16.2 4.8,20 6.5,12.8 1,7.8 8.2,7.2" fill="var(--green)" stroke="#1e8c4d" stroke-width="0.7"/>
-      <text x="11" y="13.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="5.5" font-weight="800" fill="#fff">CSI</text>
+      <text x="11" y="13.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="4" font-weight="800" fill="#fff">ICSI</text>
     </svg>
   </div>
 
@@ -649,7 +649,7 @@ body {
   <div class="drag-piece" id="dp-csa" style="left:366px;top:478px;width:22px;height:22px;padding:0;border-radius:0;z-index:10;">
     <svg width="22" height="22" viewBox="0 0 22 22" style="display:block;">
       <polygon points="11,0.5 13.8,7.2 21,7.8 15.5,12.8 17.2,20 11,16.2 4.8,20 6.5,12.8 1,7.8 8.2,7.2" fill="var(--blue)" stroke="#3a8fc2" stroke-width="0.7"/>
-      <text x="11" y="13.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="5.5" font-weight="800" fill="#fff">CSA</text>
+      <text x="11" y="13.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="4" font-weight="800" fill="#fff">ICSA</text>
     </svg>
   </div>
 
@@ -766,14 +766,25 @@ body {
 
 <!-- ===== ALL SEATS LEGEND ===== -->
 <div class="section-head">The Seats</div>
-<div class="seat-row" style="padding:12px 16px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;">
-  <div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">BDR</span><span class="seat-name">Business Development Rep</span></div>
-  <div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));"><span class="seat-abbr">CSE</span><span class="seat-name">Client Success Engineer</span></div>
-  <div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">CSA</span><span class="seat-name">Client Success Advocate</span></div>
-  <div class="seat-badge" style="background:linear-gradient(135deg,var(--red),var(--red-light));"><span class="seat-abbr">CSC</span><span class="seat-name">Client Success Coach</span></div>
-  <div class="seat-badge" style="background:linear-gradient(135deg,var(--green),var(--green-light));"><span class="seat-abbr">CSI</span><span class="seat-name">Client Success Implementer</span></div>
-  <div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-abbr">CCI</span><span class="seat-name">Certified Coatings Instructor</span></div>
-  <div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">CSR</span><span class="seat-name">Customer Service Representative</span></div>
+<div style="display:flex;align-items:stretch;gap:0;padding:12px 16px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;">
+  <!-- Left side: Core seats -->
+  <div class="seat-row" style="flex:1;margin:0;">
+    <div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">BDR</span><span class="seat-name">Business Development Rep</span></div>
+    <div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));"><span class="seat-abbr">CSE</span><span class="seat-name">Client Success Engineer</span></div>
+    <div class="seat-badge" style="background:linear-gradient(135deg,var(--red),var(--red-light));"><span class="seat-abbr">CSC</span><span class="seat-name">Client Success Coach</span></div>
+    <div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-abbr">CCI</span><span class="seat-name">Certified Coatings Instructor</span></div>
+    <div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">CSR</span><span class="seat-name">Customer Service Representative</span></div>
+  </div>
+  <!-- Dotted divider -->
+  <div style="width:1px;border-left:2px dashed rgba(0,0,0,0.15);margin:0 12px;"></div>
+  <!-- Right side: IC Community seats -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+    <div style="font-size:7px;font-weight:800;color:var(--black);letter-spacing:2px;text-transform:uppercase;">IC Community</div>
+    <div class="seat-row" style="margin:0;">
+      <div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">ICSA</span><span class="seat-name">IC Success Ambassador</span></div>
+      <div class="seat-badge" style="background:linear-gradient(135deg,var(--green),var(--green-light));"><span class="seat-abbr">ICSI</span><span class="seat-name">IC Success Implementer</span></div>
+    </div>
+  </div>
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--find),var(--find-light));">DEAL 1</span> FIND: Discovery Marketing &rarr; Customer ($499)</div>
@@ -821,7 +832,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));">GROWTH</span> Shield Path L1&ndash;L5</div>
-<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">CSA</span><span class="seat-name">Client Success Advocate</span></div></div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">ICSA</span><span class="seat-name">IC Success Ambassador</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,#4a9fd5,var(--blue));"><div class="sp-name">CLIENT</div><div class="sp-detail">Blue<br>L1 Entry</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--find);"></div><div class="sp-name">L1 Product User</div><div class="sp-detail">$0&ndash;$10K</div></div><div class="line-arrow">&rarr;</div>
@@ -858,7 +869,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));">L7</span> Retail Hub: Go Blue &mdash; Sales, Rental &amp; Service</div>
-<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">CSA</span><span class="seat-name">Client Success Advocate</span></div></div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">ICSA</span><span class="seat-name">IC Success Ambassador</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,#4a9fd5,var(--blue));"><div class="sp-name">L7</div><div class="sp-detail">$1M+ / 5yr</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--blue);"></div><div class="sp-name">Showroom</div><div class="sp-detail">CP Floors</div></div><div class="line-arrow">&rarr;</div>
