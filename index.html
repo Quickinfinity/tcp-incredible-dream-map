@@ -348,7 +348,8 @@ body {
 .ov-branch { display:flex; flex-direction:column; gap:4px; }
 .ov-branch-row { display:flex; align-items:center; gap:6px; }
 .ov-branch-label { font-size:8px; color:#999; font-weight:600; min-width:48px; text-align:right; }
-.line-row { display:flex; align-items:stretch; gap:0; overflow-x:auto; padding-bottom:10px; margin-bottom:12px; scrollbar-width:thin; scrollbar-color:#ccc transparent; }
+.line-row { display:inline-flex; align-items:stretch; gap:0; overflow-x:auto; padding-bottom:10px; margin-bottom:12px; scrollbar-width:thin; scrollbar-color:#ccc transparent; cursor:grab; user-select:none; position:relative; transition:box-shadow 0.2s,transform 0.15s; }
+.line-row.dragging { z-index:100!important; box-shadow:0 8px 24px rgba(0,0,0,0.25)!important; transform:scale(1.01); cursor:grabbing; }
 .line-row::-webkit-scrollbar { height:4px; }
 .line-row::-webkit-scrollbar-thumb { background:#ccc; border-radius:2px; }
 .line-arrow { display:flex; align-items:center; justify-content:center; font-size:14px; color:#ccc; min-width:18px; flex-shrink:0; }
@@ -732,7 +733,7 @@ body {
 
 <!-- ==================== LINES TAB ==================== -->
 <div id="tab-lines" class="tab-content">
-<div class="lines-wrap">
+<div class="lines-wrap" id="linesZone">
 <div class="section-head">Overview: The Revenue Process</div>
 <div class="line-bulb">
   <!-- Dome: branches at top -->
@@ -927,6 +928,43 @@ body {
   </div>
 </div>
 
+<!-- ===== FREEDOMS LINE ===== -->
+<div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#333;">FREEDOMS</span> The Five Freedoms</div>
+<div class="seats-zone" id="freedomsZone" style="padding:12px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;min-height:70px;">
+  <div class="seat-drag" id="fr-finance" style="left:0;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#333;"><span class="seat-abbr" style="color:#333;">&#9733;</span><span class="seat-name" style="color:#444;">Freedom of Finance</span></div></div>
+  <div class="seat-drag" id="fr-time" style="left:160px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#333;"><span class="seat-abbr" style="color:#333;">&#9733;</span><span class="seat-name" style="color:#444;">Freedom of Time</span></div></div>
+  <div class="seat-drag" id="fr-relationship" style="left:300px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#333;"><span class="seat-abbr" style="color:#333;">&#9733;</span><span class="seat-name" style="color:#444;">Freedom of Relationship</span></div></div>
+  <div class="seat-drag" id="fr-purpose" style="left:470px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#333;"><span class="seat-abbr" style="color:#333;">&#9733;</span><span class="seat-name" style="color:#444;">Freedom of Purpose</span></div></div>
+  <div class="seat-drag" id="fr-growth" style="left:630px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#333;"><span class="seat-abbr" style="color:#333;">&#9733;</span><span class="seat-name" style="color:#444;">Freedom of Growth</span></div></div>
+</div>
+
+<!-- ===== MAKE IT LINE ===== -->
+<div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--dark),var(--dark2));">MANTRA</span> The Four Statements</div>
+<div class="seats-zone" id="mantraZone" style="padding:12px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;min-height:60px;">
+  <div class="seat-drag" id="mn-makeup" style="left:0;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--dark),var(--dark2));"><span class="seat-abbr">1</span><span class="seat-name">Make It Up</span></div></div>
+  <div class="seat-drag" id="mn-makereal" style="left:130px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--dark),var(--dark2));"><span class="seat-abbr">2</span><span class="seat-name">Make It Real</span></div></div>
+  <div class="seat-drag" id="mn-asgood" style="left:270px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--dark),var(--dark2));"><span class="seat-abbr">3</span><span class="seat-name">As Good As Possible</span></div></div>
+  <div class="seat-drag" id="mn-asfast" style="left:450px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--dark),var(--dark2));"><span class="seat-abbr">4</span><span class="seat-name">As Fast As Possible</span></div></div>
+</div>
+
+<!-- ===== OPERATING PRINCIPLES LINE ===== -->
+<div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--green),var(--green-light));">PRINCIPLES</span> Operating Principles</div>
+<div class="seats-zone" id="principlesZone" style="padding:12px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;min-height:60px;">
+  <div class="seat-drag" id="pr-focus" style="left:0;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--green),var(--green-light));"><span class="seat-abbr">&#9678;</span><span class="seat-name">Focus Powered</span></div></div>
+  <div class="seat-drag" id="pr-values" style="left:150px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--green),var(--green-light));"><span class="seat-abbr">&#9678;</span><span class="seat-name">Values Guided</span></div></div>
+  <div class="seat-drag" id="pr-results" style="left:300px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--green),var(--green-light));"><span class="seat-abbr">&#9678;</span><span class="seat-name">Results Driven</span></div></div>
+</div>
+
+<!-- ===== CORE VALUES LINE ===== -->
+<div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--find),var(--find-light));">CORE VALUES</span> What We Stand For</div>
+<div class="seats-zone" id="valuesZone" style="padding:12px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;min-height:70px;">
+  <div class="seat-drag" id="cv-help" style="left:0;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">&#10084;</span><span class="seat-name">Help First</span></div></div>
+  <div class="seat-drag" id="cv-confident" style="left:120px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">&#10084;</span><span class="seat-name">Respectfully Confident</span></div></div>
+  <div class="seat-drag" id="cv-bus" style="left:300px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">&#10084;</span><span class="seat-name">Move the Bus</span></div></div>
+  <div class="seat-drag" id="cv-compass" style="left:430px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">&#10084;</span><span class="seat-name">Strong Moral Compass</span></div></div>
+  <div class="seat-drag" id="cv-empower" style="left:610px;top:8px;"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">&#10084;</span><span class="seat-name">Empowerment to Emancipation</span></div></div>
+</div>
+
 </div>
 </div>
 
@@ -949,7 +987,7 @@ function switchTab(tab) {
 
   function onStart(e) {
     // Check for drag-piece (interior) or flank/go-badge (bottom)
-    const piece = e.target.closest('.drag-piece') || e.target.closest('.flank') || e.target.closest('.go-badge') || e.target.closest('.seat-drag');
+    const piece = e.target.closest('.drag-piece') || e.target.closest('.flank') || e.target.closest('.go-badge') || e.target.closest('.seat-drag') || e.target.closest('.line-row');
     if (!piece) return;
     // Don't drag if clicking the exit toggle
     if (e.target.closest('.fk-exit')) return;
@@ -1004,7 +1042,7 @@ function switchTab(tab) {
   } catch(ex) {}
 
   // Bind to both zones
-  ['dragZone','bottomZone','seatsZone','systemsZone'].forEach(zid => {
+  ['dragZone','bottomZone','seatsZone','systemsZone','freedomsZone','mantraZone','principlesZone','valuesZone','linesZone'].forEach(zid => {
     const z = document.getElementById(zid);
     if (!z) return;
     z.addEventListener('mousedown', onStart);
