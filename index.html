@@ -288,10 +288,15 @@ body {
 .ipp-level { width:14px; height:16px; border-radius:2px 2px 50% 50%; display:flex; align-items:center; justify-content:center; font-size:3.5px; color:#fff; font-weight:800; box-shadow:0 1px 2px rgba(0,0,0,0.15); }
 
 /* ===== BOTTOM SECTION ===== */
-.bottom-section { position:relative; margin-top:16px; max-width:860px; width:860px; height:480px; }
+.bottom-section { position:relative; margin-top:16px; max-width:860px; width:860px; height:340px; }
 .flank { position:absolute; width:88px; display:flex; flex-direction:column; align-items:center; cursor:grab; user-select:none; z-index:2; transition:box-shadow 0.2s; }
 .flank.dragging { cursor:grabbing; z-index:100; box-shadow:0 8px 24px rgba(0,0,0,0.25); }
 .flank-title { font-family:'Playfair Display',serif; font-size:11px; font-weight:900; text-align:center; margin-bottom:8px; letter-spacing:0.5px; }
+.flank-horiz { width:auto!important; flex-direction:row!important; gap:0; align-items:center!important; }
+.flank-horiz .flank-title { margin-bottom:0; margin-right:8px; white-space:nowrap; }
+.flank-horiz .fk-arrow { transform:rotate(-90deg); margin:0 1px; font-size:8px; }
+.flank-horiz .fk { width:68px; min-width:68px; }
+.flank-horiz .fk-exit { width:68px; min-width:68px; }
 .fk { width:80px; border:1.5px solid #e0ddd5; padding:5px 4px; text-align:center; background:#fff; position:relative; border-radius:var(--radius-sm); transition:all 0.2s cubic-bezier(0.4,0,0.2,1); box-shadow:var(--shadow-sm); }
 .fk:hover { transform:translateY(-2px); z-index:2; box-shadow:var(--shadow-md); }
 .fk .ft { height:4px; margin:-5px -4px 4px; border-radius:4px 4px 0 0; }
@@ -629,6 +634,14 @@ body {
     </svg>
   </div>
 
+  <!-- CSA Star Token (Blue) -->
+  <div class="drag-piece" id="dp-csa" style="left:366px;top:478px;width:22px;height:22px;padding:0;border-radius:0;z-index:10;">
+    <svg width="22" height="22" viewBox="0 0 22 22" style="display:block;">
+      <polygon points="11,0.5 13.8,7.2 21,7.8 15.5,12.8 17.2,20 11,16.2 4.8,20 6.5,12.8 1,7.8 8.2,7.2" fill="var(--blue)" stroke="#3a8fc2" stroke-width="0.7"/>
+      <text x="11" y="13.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="5.5" font-weight="800" fill="#fff">CSA</text>
+    </svg>
+  </div>
+
   <!-- Customer Delight -->
   <div class="drag-piece" id="dp-delight" style="left:20px;top:420px;width:280px;height:56px;padding:2px;">
     <span class="drag-handle">&#9776;</span>
@@ -653,25 +666,25 @@ body {
 
 <!-- ===== BOTTOM: Deal 1 + Customer Badge + Remote Training ===== -->
 <div class="bottom-section" id="bottomZone">
-<div class="flank" id="bz-deal1" style="left:30px;top:0;">
-  <div class="flank-title" style="color:var(--find);">DEAL 1<br>FIND</div>
-  <div class="fk fk-dark"><div class="fn">Discovery Marketing</div><div class="fd">Ads &bull; Content</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Subscriber</div><div class="fd">5 pts</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Lead</div><div class="fd">10 pts</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">MQL</div><div class="fd">25 pts</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Contact</div><div class="fd">T.E.M.P.</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Follow Up</div><div class="fd">Proof</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Training Interest</div><div class="fd">Register</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Reg + Paid</div><div class="fd">$499</div></div><div class="fk-arrow">&darr;</div>
-  <div class="fk fk-exit" onclick="this.classList.toggle('open')"><div class="fn">EXIT &#9660;</div><div class="fd">7 Values</div><div class="exit-vals">1. DIY<br>2. Find Contractor<br>3. Wrong Timing<br>4. No Response<br>5. DNC<br>6. Other<br>7. Timed Out</div></div>
+<div class="flank flank-horiz" id="bz-deal1" style="left:10px;top:0;">
+  <div class="fk fk-exit" onclick="event.stopPropagation();this.classList.toggle('open')"><div class="fn">EXIT &#9660;</div><div class="fd">7 Values</div><div class="exit-vals">1. DIY<br>2. Find Contractor<br>3. Wrong Timing<br>4. No Response<br>5. DNC<br>6. Other<br>7. Timed Out</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Reg + Paid</div><div class="fd">$499</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Training Interest</div><div class="fd">Register</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Follow Up</div><div class="fd">Proof</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Contact</div><div class="fd">T.E.M.P.</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">MQL</div><div class="fd">25 pts</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Lead</div><div class="fd">10 pts</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Subscriber</div><div class="fd">5 pts</div></div><div class="fk-arrow">&larr;</div>
+  <div class="fk fk-dark"><div class="fn">Discovery Marketing</div><div class="fd">Ads &bull; Content</div></div>
+  <div class="flank-title" style="color:var(--find);margin-left:8px;">DEAL 1<br>FIND</div>
 </div>
-<div class="go-badge" id="bz-customer" style="left:340px;top:100px;">
+<div class="go-badge" id="bz-customer" style="left:300px;top:60px;">
   <div class="gb-title">&#9901; CUSTOMER</div>
   <div class="gb-sub">Orange &bull; $499 Deposit Paid</div>
   <div class="gb-arrows"><div class="gb-arr">&larr; DEAL 1</div><div style="width:2px;height:20px;background:rgba(255,255,255,0.3);border-radius:1px;"></div><div class="gb-arr">REMOTE &rarr;</div></div>
   <div style="font-size:10px;margin-top:8px;font-weight:700;letter-spacing:0.5px;">&uarr; ENTER BOARD AT GO &uarr;</div>
 </div>
-<div class="flank" id="bz-remote" style="left:700px;top:0;">
+<div class="flank" id="bz-remote" style="left:700px;top:60px;">
   <div class="flank-title" style="color:var(--green);">REMOTE<br>TRAINING</div>
   <div class="fk fk-green"><div class="fn">$499 Kit</div><div class="fd">Train at Home</div></div><div class="fk-arrow">&darr;</div>
   <div class="fk"><div class="ft" style="background:var(--green);"></div><div class="fn">Remote Modules</div><div class="fd">DCU + Video</div></div><div class="fk-arrow">&darr;</div>
