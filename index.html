@@ -252,6 +252,17 @@ body {
 }
 .lb-label { font-size: 8px; font-weight: 800; color: #aaa; letter-spacing: 2px; text-transform: uppercase; }
 
+/* Seat badges on line cards */
+.seat-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+.seat-badge {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:4px 10px; border-radius:20px;
+  font-size:10px; font-weight:700; color:#fff;
+  box-shadow:var(--shadow-sm);
+}
+.seat-badge .seat-abbr { font-weight:900; letter-spacing:0.5px; }
+.seat-badge .seat-name { font-weight:400; opacity:0.9; font-size:9px; }
+
 /* DCU & Webstore interior cards */
 .interior-card {
   border-radius:6px; padding:4px 6px; text-align:center; width:100%;
@@ -754,6 +765,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--find),var(--find-light));">DEAL 1</span> FIND: Discovery Marketing &rarr; Customer ($499)</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">BDR</span><span class="seat-name">Business Development Rep</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,var(--dark),var(--dark2));"><div class="sp-name">Discovery<br>Marketing</div><div class="sp-detail">Ads, Content<br>Trade Shows</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--find);"></div><div class="sp-name">Subscriber</div><div class="sp-detail">PDF of Value<br>5 pts</div></div><div class="line-arrow">&rarr;</div>
@@ -767,6 +779,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--green),var(--green-light));">DEAL 2</span> Training Class: Deposit &rarr; L1 Certification</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><span class="seat-abbr">BDR</span><span class="seat-name">Business Development Rep</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,var(--green),var(--green-light));"><div class="sp-name" style="font-size:14px;">GO</div><div class="sp-detail">to Training Class<br>Customer Orange</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--green);"></div><div class="sp-name">Deposit<br>Received</div><div class="sp-detail">Ticket +<br>Travel</div></div><div class="line-arrow">&rarr;</div>
@@ -780,6 +793,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,#b8960c,var(--yellow));color:var(--dark);">DEAL 3</span> C2C Success: Customer &rarr; Client &rarr; Launch</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--gold),var(--gold-light));"><span class="seat-abbr">CSE</span><span class="seat-name">Client Success Engineer</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,#b8960c,var(--yellow));"><div class="sp-name" style="color:var(--dark);">GO &rarr;</div><div class="sp-detail" style="color:rgba(0,0,0,0.5);">Fast Pass</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--yellow);"></div><div class="sp-name" style="color:var(--yellow-dark);">iCard (ICC)</div><div class="sp-detail">$199 Know Self</div></div><div class="line-arrow">&rarr;</div>
@@ -795,6 +809,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));">GROWTH</span> Shield Path L1&ndash;L5</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">CSA</span><span class="seat-name">Client Success Advocate</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,#4a9fd5,var(--blue));"><div class="sp-name">CLIENT</div><div class="sp-detail">Blue<br>L1 Entry</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--find);"></div><div class="sp-name">L1 Product User</div><div class="sp-detail">$0&ndash;$10K</div></div><div class="line-arrow">&rarr;</div>
@@ -806,6 +821,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,#111128,var(--black));">ICC</span> Incredible Collaborative Community</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-abbr">CCI</span><span class="seat-name">Certified Coatings Instructor</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,#111128,var(--black));"><div class="sp-name">ICC</div><div class="sp-detail">Community Entry</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--black);"></div><div class="sp-name">Member</div><div class="sp-detail">Peer Network</div></div><div class="line-arrow">&rarr;</div>
@@ -820,6 +836,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--red),var(--red-light));">L6</span> Expert Dealership: Go Red &mdash; Clone &amp; Multiply</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--red),var(--red-light));"><span class="seat-abbr">CSC</span><span class="seat-name">Client Success Coach</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,var(--red),var(--red-light));"><div class="sp-name">L6</div><div class="sp-detail">$1.25M+ / 3yr</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--red);"></div><div class="sp-name">Multiple Profit Centers</div><div class="sp-detail">Clone the System</div></div><div class="line-arrow">&rarr;</div>
@@ -829,6 +846,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));">L7</span> Retail Hub: Go Blue &mdash; Sales, Rental &amp; Service</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,var(--blue),var(--blue-light));"><span class="seat-abbr">CSA</span><span class="seat-name">Client Success Advocate</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,#4a9fd5,var(--blue));"><div class="sp-name">L7</div><div class="sp-detail">$1M+ / 5yr</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--blue);"></div><div class="sp-name">Showroom</div><div class="sp-detail">CP Floors</div></div><div class="line-arrow">&rarr;</div>
@@ -839,6 +857,7 @@ body {
 </div>
 
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--find),var(--find-light));">&star; DELIGHT</span> Delight Customers &mdash; Orange stays Orange</div>
+<div class="seat-row"><div class="seat-badge" style="background:linear-gradient(135deg,#FFD700,#e8c96a);color:#333;"><span class="seat-abbr" style="color:#333;">CSR</span><span class="seat-name" style="color:#555;">Customer Service Representative</span></div></div>
 <div class="line-row">
   <div class="space space-corner" style="background:linear-gradient(135deg,var(--find),var(--find-light));"><div class="sp-name">&star; Delight<br>Customers</div><div class="sp-detail">P.E.T. Only</div></div><div class="line-arrow">&rarr;</div>
   <div class="space"><div class="sp-stripe" style="background:var(--find);"></div><div class="sp-name">P.E.T. Only</div><div class="sp-detail">Products<br>Equipment<br>Training</div></div><div class="line-arrow">&rarr;</div>
