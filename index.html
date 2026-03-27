@@ -907,13 +907,24 @@ body {
   <div class="space"><div class="sp-stripe" style="background:var(--green);"></div><div class="sp-name">Re-Engage</div><div class="sp-detail">&larr; Back to BDR or D3</div></div>
 </div>
 
-<!-- ===== SYSTEMS LINE ===== -->
+<!-- ===== SYSTEMS LINE (draggable) ===== -->
 <div class="section-head"><span class="sh-tag" style="background:linear-gradient(135deg,var(--dark),var(--dark2));">SYSTEMS</span> The Incredible Business Systems</div>
-<div class="line-row">
-  <div class="space space-corner" style="background:linear-gradient(135deg,#f7e8a0,#d4a843);min-width:100px;"><div class="sp-name" style="color:#5a4200;font-size:7.5px;">&#127942; Decorative<br>Concrete<br>University</div><div class="sp-detail" style="color:#7a6520;">DCU &bull; Training</div></div><div class="line-arrow">&rarr;</div>
-  <div class="space space-corner" style="background:linear-gradient(135deg,#111111,#222222);min-width:100px;"><div class="sp-name" style="font-size:7px;">&#9881; Incredible<br>Business<br>Operating System</div><div class="sp-detail">I-BOS</div></div><div class="line-arrow">&rarr;</div>
-  <div class="space space-corner" style="background:linear-gradient(135deg,var(--red),var(--red-light));min-width:100px;"><div class="sp-name" style="font-size:7px;">&#128200; Incredible<br>Marketing<br>System</div><div class="sp-detail">I-MARKET</div></div><div class="line-arrow">&rarr;</div>
-  <div class="space space-corner" style="background:linear-gradient(135deg,#e8eef4,#ccd6e0);min-width:100px;"><div class="sp-name" style="color:#2c3e50;font-size:7.5px;">CP The Concrete<br>Protector<br>Webstore</div><div class="sp-detail" style="color:#556677;">Products &bull; Equipment</div></div>
+<div class="seats-zone" id="systemsZone" style="padding:12px;background:rgba(255,255,255,0.6);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);margin-bottom:24px;min-height:90px;">
+  <div class="seat-drag" id="sys-dcu" style="left:0;top:8px;">
+    <div class="space space-corner" style="background:linear-gradient(135deg,#f7e8a0,#d4a843);min-width:100px;margin:0;"><div class="sp-name" style="color:#5a4200;font-size:7.5px;">&#127942; Decorative<br>Concrete<br>University</div><div class="sp-detail" style="color:#7a6520;">DCU &bull; Training</div></div>
+  </div>
+  <div style="position:absolute;left:112px;top:38px;font-size:14px;color:#ccc;pointer-events:none;">&rarr;</div>
+  <div class="seat-drag" id="sys-ibos" style="left:130px;top:8px;">
+    <div class="space space-corner" style="background:linear-gradient(135deg,#111111,#222222);min-width:100px;margin:0;"><div class="sp-name" style="font-size:7px;">&#9881; Incredible<br>Business<br>Operating System</div><div class="sp-detail">I-BOS</div></div>
+  </div>
+  <div style="position:absolute;left:242px;top:38px;font-size:14px;color:#ccc;pointer-events:none;">&rarr;</div>
+  <div class="seat-drag" id="sys-imarket" style="left:260px;top:8px;">
+    <div class="space space-corner" style="background:linear-gradient(135deg,var(--red),var(--red-light));min-width:100px;margin:0;"><div class="sp-name" style="font-size:7px;">&#128200; Incredible<br>Marketing<br>System</div><div class="sp-detail">I-MARKET</div></div>
+  </div>
+  <div style="position:absolute;left:372px;top:38px;font-size:14px;color:#ccc;pointer-events:none;">&rarr;</div>
+  <div class="seat-drag" id="sys-cpstore" style="left:390px;top:8px;">
+    <div class="space space-corner" style="background:linear-gradient(135deg,#e8eef4,#ccd6e0);min-width:100px;margin:0;"><div class="sp-name" style="color:#2c3e50;font-size:7.5px;">CP The Concrete<br>Protector<br>Webstore</div><div class="sp-detail" style="color:#556677;">Products &bull; Equipment</div></div>
+  </div>
 </div>
 
 </div>
@@ -993,7 +1004,7 @@ function switchTab(tab) {
   } catch(ex) {}
 
   // Bind to both zones
-  ['dragZone','bottomZone','seatsZone'].forEach(zid => {
+  ['dragZone','bottomZone','seatsZone','systemsZone'].forEach(zid => {
     const z = document.getElementById(zid);
     if (!z) return;
     z.addEventListener('mousedown', onStart);
