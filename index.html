@@ -649,7 +649,7 @@ body {
   </div>
 
   <!-- L1 Shield Token -->
-  <div class="drag-piece" id="dp-l1shield" style="left:498px;top:478px;width:18px;height:22px;padding:0;border-radius:0;z-index:250;">
+  <div class="drag-piece" id="dp-l1shield" style="left:498px;top:460px;width:18px;height:22px;padding:0;border-radius:0;z-index:999;">
     <svg width="18" height="22" viewBox="0 0 18 22" style="display:block;">
       <path d="M 9 0 L 17.5 4 L 17.5 11 C 17.5 16.5 9 21.5 9 21.5 C 9 21.5 0.5 16.5 0.5 11 L 0.5 4 Z" fill="var(--find)" stroke="#d06c1a" stroke-width="0.8"/>
       <text x="9" y="13" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#fff">L-1</text>
@@ -1163,6 +1163,12 @@ function switchTab(tab) {
     checkBeamOverlap();
     active = null;
   }
+
+  // Reset L1 shield if stuck under a cell
+  try {
+    const pos = JSON.parse(localStorage.getItem('dreamMapPositions') || '{}');
+    if (pos['dp-l1shield']) { delete pos['dp-l1shield']; localStorage.setItem('dreamMapPositions', JSON.stringify(pos)); }
+  } catch(ex) {}
 
   // Check on load too
   setTimeout(checkBeamOverlap, 500);
