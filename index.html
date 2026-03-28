@@ -82,7 +82,7 @@ body {
   white-space:nowrap; transform:rotate(-45deg); transform-origin:center;
 }
 .drag-zone { position:absolute; top:62px; left:62px; right:62px; bottom:62px; pointer-events:none; z-index:5; overflow:visible; }
-.drag-piece { position:absolute; pointer-events:auto; cursor:grab; user-select:none; transition:box-shadow 0.2s,transform 0.15s; z-index:6; border-radius:var(--radius-sm); }
+.drag-piece { position:absolute; pointer-events:auto; cursor:grab; user-select:none; transition:box-shadow 0.2s,transform 0.15s; z-index:210; border-radius:var(--radius-sm); }
 .drag-piece:active { cursor:grabbing; }
 .drag-piece.dragging { z-index:100!important; box-shadow:0 8px 24px rgba(0,0,0,0.35)!important; transform:scale(1.05); transition:box-shadow 0.1s; }
 .drag-piece .drag-handle { position:absolute; top:1px; right:3px; font-size:6px; color:rgba(0,0,0,0.18); pointer-events:none; }
@@ -279,8 +279,8 @@ body {
   opacity:0; transition:opacity 0.4s ease;
   z-index:200;
 }
-.luxor-cell:hover .luxor-beam { opacity:1; }
-.luxor-cell:hover { z-index:200!important; }
+.luxor-cell:hover .luxor-beam, .luxor-cell.beam-active .luxor-beam { opacity:1; }
+.luxor-cell:hover, .luxor-cell.beam-active { z-index:200!important; }
 .luxor-light {
   position:absolute; right:0; top:50%; transform:translateY(-50%);
   height:10px; width:180px;
@@ -649,7 +649,7 @@ body {
   </div>
 
   <!-- L1 Shield Token -->
-  <div class="drag-piece" id="dp-l1shield" style="left:498px;top:478px;width:18px;height:22px;padding:0;border-radius:0;z-index:10;">
+  <div class="drag-piece" id="dp-l1shield" style="left:498px;top:478px;width:18px;height:22px;padding:0;border-radius:0;z-index:250;">
     <svg width="18" height="22" viewBox="0 0 18 22" style="display:block;">
       <path d="M 9 0 L 17.5 4 L 17.5 11 C 17.5 16.5 9 21.5 9 21.5 C 9 21.5 0.5 16.5 0.5 11 L 0.5 4 Z" fill="var(--find)" stroke="#d06c1a" stroke-width="0.8"/>
       <text x="9" y="13" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" font-weight="800" fill="#fff">L-1</text>
@@ -1135,6 +1135,17 @@ function switchTab(tab) {
     active.style.top = (origY + dy) + 'px';
   }
 
+  function checkBeamOverlap() {
+    const shield = document.getElementById('dp-l1shield');
+    const luxorCell = document.querySelector('.luxor-cell');
+    if (!shield || !luxorCell) return;
+    const sr = shield.getBoundingClientRect();
+    const cr = luxorCell.getBoundingClientRect();
+    const overlap = !(sr.right < cr.left || sr.left > cr.right || sr.bottom < cr.top || sr.top > cr.bottom);
+    if (overlap) { luxorCell.classList.add('beam-active'); }
+    else { luxorCell.classList.remove('beam-active'); }
+  }
+
   function onEnd() {
     if (!active) return;
     active.classList.remove('dragging');
@@ -1148,8 +1159,13 @@ function switchTab(tab) {
         localStorage.setItem(key, JSON.stringify(positions));
       }
     } catch(ex) {}
+    // Check if L1 shield overlaps the luxor cell
+    checkBeamOverlap();
     active = null;
   }
+
+  // Check on load too
+  setTimeout(checkBeamOverlap, 500);
 
   // Restore saved positions
   try {
