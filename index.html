@@ -272,7 +272,9 @@ body {
 .seat-drag.dragging { z-index:100!important; box-shadow:0 6px 20px rgba(0,0,0,0.3)!important; transform:scale(1.08); }
 
 /* ===== LUXOR BEAM / BAT SIGNAL ===== */
-.luxor-cell { overflow:visible!important; }
+.luxor-cell { overflow:visible!important; z-index:5!important; }
+.luxor-cell:hover, .luxor-cell.beam-active { z-index:5!important; }
+.luxor-beam { z-index:6; pointer-events:none; }
 .luxor-beam {
   position:absolute; top:50%; right:100%; transform:translateY(-50%);
   width:0; height:0; pointer-events:none;
@@ -280,7 +282,6 @@ body {
   z-index:200;
 }
 .luxor-cell:hover .luxor-beam, .luxor-cell.beam-active .luxor-beam { opacity:1; }
-.luxor-cell:hover, .luxor-cell.beam-active { z-index:200!important; }
 .luxor-light {
   position:absolute; right:0; top:50%; transform:translateY(-50%);
   height:10px; width:180px;
