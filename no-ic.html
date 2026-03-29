@@ -512,20 +512,6 @@ body {
 <div class="wm" style="grid-row:3;grid-column:2;grid-row-end:11;writing-mode:vertical-rl;transform:rotate(180deg);"><div class="wm-text" style="font-size:20px;color:var(--green);">T R A I N I N G</div></div>
 <div class="wm" style="grid-row:2;grid-column:10;grid-row-end:11;writing-mode:vertical-rl;"><div class="wm-text" style="font-size:20px;color:var(--blue);">G R O W T H &nbsp; P A T H</div></div>
 
-<!-- ===== ARROW: CERTIFIED → DELIGHT (left turn) ===== -->
-<div class="board-arrows">
-  <svg viewBox="0 0 642 662" preserveAspectRatio="none">
-    <defs>
-      <marker id="arrowEnd" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-        <polygon points="0 0, 8 3, 0 6" class="arrow-head"/>
-      </marker>
-    </defs>
-    <!-- Path from CERTIFIED top-right corner (col1 row11) curving up-right to Delight area (interior row9-10) -->
-    <!-- CERTIFIED top-right is approx x:60 y:600, Delight area is approx x:140 y:490 -->
-    <path d="M 58 598 C 58 560, 80 530, 130 510 L 160 498" class="arrow-path" marker-end="url(#arrowEnd)"/>
-  </svg>
-  <div class="arrow-label" style="left:62px;top:538px;">→ Delight Customers</div>
-</div>
 
 <!-- ===== DRAG ZONE: Freely arrangeable interior pieces ===== -->
 <div class="drag-zone" id="dragZone">
@@ -826,38 +812,9 @@ body {
 </div>
 <div class="outside-label outside-bottom">F I N D</div>
 
-<!-- ===== IC COMMUNITY (pulled off board, moveable) ===== -->
-<div style="position:relative;max-width:860px;margin:12px auto 0;min-height:40px;padding:8px 12px;background:rgba(255,255,255,0.4);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);" id="icSideZone">
-  <div style="font-size:7px;font-weight:800;color:var(--black);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">IC Community</div>
-  <div class="seat-drag" id="ic-member" style="left:0;top:22px;"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-name">Member</span></div></div>
-  <div class="seat-drag" id="ic-memrent" style="left:80px;top:22px;"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-name">Community Rental</span></div></div>
-  <div class="seat-drag" id="ic-ambment" style="left:210px;top:22px;"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-name">Ambassador Mentoring</span></div></div>
-  <div class="seat-drag" id="ic-ambconn" style="left:370px;top:22px;"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-name">Ambassador Connector</span></div></div>
-  <div class="seat-drag" id="ic-concci" style="left:520px;top:22px;"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-name">Consultant CCI</span></div></div>
-  <div class="seat-drag" id="ic-consys" style="left:640px;top:22px;"><div class="seat-badge" style="background:linear-gradient(135deg,#111128,var(--black));"><span class="seat-name">Consultant Systems</span></div></div>
-</div>
-
 
 <!-- ===== BOTTOM: Deal 1 + Customer Badge + Remote Training ===== -->
 <div class="bottom-section" id="bottomZone">
-<div class="flank flank-horiz" id="bz-deal1" style="left:10px;top:0;">
-  <div class="fk fk-exit" onclick="event.stopPropagation();this.classList.toggle('open')"><div class="fn">EXIT &#9660;</div><div class="fd">7 Values</div><div class="exit-vals">1. DIY<br>2. Find Contractor<br>3. Wrong Timing<br>4. No Response<br>5. DNC<br>6. Other<br>7. Timed Out</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Reg + Paid</div><div class="fd">$499</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Training Interest</div><div class="fd">Register</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Follow Up</div><div class="fd">Proof</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Contact</div><div class="fd">T.E.M.P.</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">MQL</div><div class="fd">25 pts</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Lead</div><div class="fd">10 pts</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk"><div class="ft" style="background:var(--find);"></div><div class="fn">Subscriber</div><div class="fd">5 pts</div></div><div class="fk-arrow">&larr;</div>
-  <div class="fk fk-dark"><div class="fn">Discovery Marketing</div><div class="fd">Ads &bull; Content</div></div>
-  <div class="flank-title" style="color:var(--find);margin-left:8px;">DEAL 1<br>FIND</div>
-</div>
-<div class="go-badge" id="bz-customer" style="left:300px;top:60px;">
-  <div class="gb-title">&#9901; CUSTOMER</div>
-  <div class="gb-sub">Orange &bull; $499 Deposit Paid</div>
-  <div class="gb-arrows"><div class="gb-arr">&larr; DEAL 1</div><div style="width:2px;height:20px;background:rgba(255,255,255,0.3);border-radius:1px;"></div><div class="gb-arr">REMOTE &rarr;</div></div>
-  <div style="font-size:10px;margin-top:8px;font-weight:700;letter-spacing:0.5px;">&uarr; ENTER BOARD AT GO &uarr;</div>
-</div>
 <div class="flank" id="bz-remote" style="left:700px;top:60px;">
   <div class="flank-title" style="color:var(--green);">REMOTE<br>TRAINING</div>
   <div class="fk fk-green"><div class="fn">$499 Kit</div><div class="fd">Train at Home</div></div><div class="fk-arrow">&darr;</div>
