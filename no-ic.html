@@ -276,33 +276,33 @@ body {
 .luxor-cell:hover, .luxor-cell.beam-active { z-index:5!important; }
 .luxor-beam { z-index:6; pointer-events:none; }
 .luxor-beam {
-  position:absolute; top:50%; right:100%; transform:translateY(-50%);
+  position:absolute; top:100%; left:50%; transform:translateX(-50%);
   width:0; height:0; pointer-events:none;
   opacity:0; transition:opacity 0.4s ease;
   z-index:200;
 }
 .luxor-cell:hover .luxor-beam, .luxor-cell.beam-active .luxor-beam { opacity:1; }
 .luxor-light {
-  position:absolute; right:0; top:50%; transform:translateY(-50%);
-  height:10px; width:180px;
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:10px; height:180px;
   background:linear-gradient(
-    to left,
+    to bottom,
     rgba(255,215,0,0.7) 0%,
     rgba(255,215,0,0.35) 15%,
     rgba(255,215,0,0.12) 40%,
     rgba(255,215,0,0.04) 70%,
     transparent 100%
   );
-  clip-path:polygon(100% 20%, 100% 80%, 0% 100%, 0% 0%);
+  clip-path:polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
   filter:blur(3px);
   animation:beamPulse 2s ease-in-out infinite;
 }
 @keyframes beamPulse {
-  0%,100% { opacity:0.8; height:10px; }
-  50% { opacity:1; height:14px; }
+  0%,100% { opacity:0.8; width:10px; }
+  50% { opacity:1; width:14px; }
 }
 .luxor-signal {
-  position:absolute; top:50%; right:150px; transform:translateY(-50%);
+  position:absolute; top:150px; left:50%; transform:translateX(-50%);
   display:flex; flex-direction:column; align-items:center;
   background:radial-gradient(ellipse, rgba(255,215,0,0.2) 0%, transparent 70%);
   padding:10px 16px; border-radius:50%;
@@ -489,8 +489,8 @@ body {
 <div class="c" style="grid-row:11;grid-column:6;"><div class="s" style="background:var(--find);"></div><div class="n">Follow Up</div><div class="d">Proof</div></div>
 <div class="c" style="grid-row:11;grid-column:5;"><div class="s" style="background:var(--find);"></div><div class="n" style="font-size:6px;">Training<br>Interest</div><div class="d">Register</div></div>
 <div class="c" style="grid-row:11;grid-column:4;"><div class="s" style="background:var(--find);"></div><div class="n">Reg + Paid</div><div class="d">$499</div></div>
-<div class="c e" style="grid-row:11;grid-column:3;"></div>
-<div class="c e" style="grid-row:11;grid-column:2;"></div>
+<div class="c" style="grid-row:11;grid-column:3;border:1.5px dashed var(--gray);background:#fafafa;cursor:pointer;" onclick="this.classList.toggle('open')"><div class="n" style="font-size:6px;">EXIT</div><div class="d">7 Values</div><div class="exit-vals" style="display:none;text-align:left;font-size:5px;color:#666;line-height:1.3;margin-top:2px;border-top:1px solid #ddd;padding-top:2px;">1.DIY<br>2.Find Contractor<br>3.Wrong Timing<br>4.No Response<br>5.DNC<br>6.Other<br>7.Timed Out</div></div>
+<div class="c" style="grid-row:11;grid-column:2;border:2px solid var(--find);background:var(--cream);"><div class="n" style="font-size:5.5px;color:var(--find);font-weight:800;">&star; Delight<br>Customers</div><div class="d">P.E.T.</div></div>
 
 <!-- ===== BL Corner: CUSTOMER + GO TO TRAINING ===== -->
 <div class="c cn" style="grid-row:11;grid-column:1;background:linear-gradient(135deg,#219a54,#2ECC71);"><div class="n" style="font-size:7px;">CUSTOMER<br>$499</div><div class="d" style="font-size:5px;">GO &uarr; Train</div></div>
@@ -510,7 +510,7 @@ body {
 <div class="wm" style="grid-row:2;grid-column:2;grid-column-end:11;"><div class="wm-text" style="font-size:14px;color:var(--yellow-dark);">C U S T O M E R &nbsp; 2 &nbsp; C L I E N T &nbsp; S U C C E S S</div></div>
 <div class="wm" style="grid-row:10;grid-column:2;grid-column-end:11;"><div class="wm-text" style="font-size:28px;color:var(--find);">F I N D</div></div>
 <div class="wm" style="grid-row:3;grid-column:2;grid-row-end:11;writing-mode:vertical-rl;transform:rotate(180deg);"><div class="wm-text" style="font-size:20px;color:var(--green);">T R A I N I N G</div></div>
-<div class="wm" style="grid-row:2;grid-column:10;grid-row-end:11;writing-mode:vertical-rl;"><div class="wm-text" style="font-size:20px;color:var(--blue);">S H I E L D &nbsp; P A T H</div></div>
+<div class="wm" style="grid-row:2;grid-column:10;grid-row-end:11;writing-mode:vertical-rl;"><div class="wm-text" style="font-size:20px;color:var(--blue);">G R O W T H &nbsp; P A T H</div></div>
 
 <!-- ===== ARROW: CERTIFIED → DELIGHT (left turn) ===== -->
 <div class="board-arrows">
