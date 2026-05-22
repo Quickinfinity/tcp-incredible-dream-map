@@ -353,14 +353,14 @@ body {
   padding-left:4px;
 }
 
-/* Increments ghost strip (right side) */
-.increments-ghost { width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
+/* Increments ghost strip (horizontal) */
+.increments-ghost { width:100%; height:100%; display:flex; align-items:center; justify-content:flex-start; position:relative; }
 .increments-ghost-inner {
-  writing-mode:vertical-rl;
-  font-size:6.5px; font-weight:800; color:rgba(39,174,96,0.65);
+  font-size:8px; font-weight:800;
   letter-spacing:3px; text-transform:uppercase;
-  border-right:1.5px dashed rgba(39,174,96,0.45);
-  padding-right:4px;
+  white-space:nowrap;
+  border-bottom:1.5px dashed currentColor;
+  padding-bottom:3px;
 }
 
 /* IPP Arrow Recreation */
@@ -526,11 +526,21 @@ body {
 <!-- ===== DRAG ZONE: Freely arrangeable interior pieces ===== -->
 <div class="drag-zone" id="dragZone">
 
-  <!-- Increments ghost (right side, movable) -->
-  <div class="drag-piece" id="dp-increments" style="left:660px;top:10px;width:22px;height:280px;">
-    <div class="increments-ghost" style="width:100%;height:100%;">
-      <div class="increments-ghost-inner">$50K &bull; $100K &bull; $150K &bull; $200K &bull; $250K &bull; NEXT LEVEL</div>
-    </div>
+  <!-- Increments ghost strips (horizontal, movable) -->
+  <div class="drag-piece" id="dp-l2-incr" style="left:240px;top:5px;width:460px;height:24px;">
+    <div class="increments-ghost"><div class="increments-ghost-inner" style="color:rgba(39,174,96,0.75);">L2 &nbsp; $50K &bull; $100K &bull; $150K &bull; $200K &bull; $250K &bull; NEXT LEVEL</div></div>
+  </div>
+
+  <div class="drag-piece" id="dp-l3-incr" style="left:240px;top:35px;width:460px;height:24px;">
+    <div class="increments-ghost"><div class="increments-ghost-inner" style="color:rgba(125,102,8,0.85);">L3 &nbsp; $300K &bull; $350K &bull; $400K &bull; $450K &bull; $500K &bull; NEXT LEVEL</div></div>
+  </div>
+
+  <div class="drag-piece" id="dp-l4-incr" style="left:240px;top:65px;width:460px;height:24px;">
+    <div class="increments-ghost"><div class="increments-ghost-inner" style="color:rgba(125,102,8,0.85);">L4 &nbsp; $550K &bull; $600K &bull; $650K &bull; $700K &bull; $750K &bull; NEXT LEVEL</div></div>
+  </div>
+
+  <div class="drag-piece" id="dp-l5-incr" style="left:240px;top:95px;width:460px;height:24px;">
+    <div class="increments-ghost"><div class="increments-ghost-inner" style="color:rgba(125,102,8,0.85);">L5 &nbsp; $850K &bull; $950K &bull; $1.05M &bull; $1.15M &bull; $1.25M &bull; NEXT LEVEL</div></div>
   </div>
 
   <!-- Postpone ghost -->
