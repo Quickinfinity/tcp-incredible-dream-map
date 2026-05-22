@@ -353,6 +353,16 @@ body {
   padding-left:4px;
 }
 
+/* Increments ghost strip (right side) */
+.increments-ghost { width:100%; height:100%; display:flex; align-items:center; justify-content:center; position:relative; }
+.increments-ghost-inner {
+  writing-mode:vertical-rl;
+  font-size:6.5px; font-weight:800; color:rgba(39,174,96,0.65);
+  letter-spacing:3px; text-transform:uppercase;
+  border-right:1.5px dashed rgba(39,174,96,0.45);
+  padding-right:4px;
+}
+
 /* IPP Arrow Recreation */
 .ipp-container { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
 .ipp-title { font-family:'Playfair Display',serif; font-size:7px; font-weight:900; color:var(--dark); letter-spacing:0.5px; }
@@ -515,6 +525,13 @@ body {
 
 <!-- ===== DRAG ZONE: Freely arrangeable interior pieces ===== -->
 <div class="drag-zone" id="dragZone">
+
+  <!-- Increments ghost (right side, movable) -->
+  <div class="drag-piece" id="dp-increments" style="left:660px;top:10px;width:22px;height:280px;">
+    <div class="increments-ghost" style="width:100%;height:100%;">
+      <div class="increments-ghost-inner">$50K &bull; $100K &bull; $150K &bull; $200K &bull; $250K &bull; NEXT LEVEL</div>
+    </div>
+  </div>
 
   <!-- Postpone ghost -->
   <div class="drag-piece" id="dp-postpone" style="left:0;top:10px;width:16px;height:230px;">
