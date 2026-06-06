@@ -428,6 +428,29 @@ body {
 /* ===== FOOTER ===== */
 .footer { text-align:center; padding:24px 20px; font-size:9px; color:#b0a99a; border-top:1px solid rgba(0,0,0,0.06); margin-top:40px; font-family:'JetBrains Mono',monospace; background:rgba(255,255,255,0.3); }
 .footer .brands { font-size:8px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; color:#c0b9aa; }
+
+/* ===== WALK-THE-LAP GAME (L-1 Shield player) ===== */
+.player-piece { width:36px; height:28px; align-self:center; justify-self:center; z-index:10; pointer-events:none; transition:all 0.32s cubic-bezier(0.4,0,0.2,1); filter:drop-shadow(0 2px 4px rgba(0,0,0,0.35)); }
+.player-piece.hidden { display:none; }
+.player-piece svg { display:block; width:100%; height:100%; }
+.game-controls { display:flex; flex-direction:column; gap:10px; justify-content:center; align-items:center; padding:16px 20px; background:rgba(250,248,244,0.85); border-radius:var(--radius-md); box-shadow:var(--shadow-sm), inset 0 0 0 1px rgba(0,0,0,0.04); pointer-events:auto; max-width:560px; margin:14px auto; }
+.game-controls-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:900; color:var(--dark); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; text-align:center; }
+.game-controls-row { display:flex; gap:6px; justify-content:center; flex-wrap:wrap; }
+.game-btn { background:#fff; border:1px solid rgba(0,0,0,0.2); color:var(--dark); padding:7px 14px; font-size:11px; font-weight:700; border-radius:6px; cursor:pointer; transition:all 0.18s; letter-spacing:0.3px; font-family:'DM Sans',sans-serif; box-shadow:var(--shadow-sm); }
+.game-btn:hover:not(:disabled) { background:rgba(0,0,0,0.04); border-color:rgba(0,0,0,0.4); transform:translateY(-1px); box-shadow:var(--shadow-md); }
+.game-btn:disabled { opacity:0.32; cursor:not-allowed; box-shadow:none; }
+.game-btn.primary { background:var(--dark); color:#fff; border-color:var(--dark); }
+.game-btn.primary:hover:not(:disabled) { background:#000; }
+.game-position { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--dark); padding:8px 14px; background:#fff; border:1px solid rgba(0,0,0,0.1); border-radius:6px; letter-spacing:0.3px; min-width:240px; text-align:center; margin-top:6px; box-shadow:var(--shadow-sm); }
+.cell-info-modal { position:fixed; inset:0; background:rgba(15,15,35,0.7); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; z-index:2000; padding:20px; animation:fadeIn 0.2s ease; }
+.cell-info-modal.open { display:flex; }
+.cell-info-card { width:300px; max-width:100%; background:#fff; border-radius:8px; padding:24px 28px 22px; box-shadow:0 24px 64px rgba(0,0,0,0.4); position:relative; font-family:'DM Sans',sans-serif; text-align:center; transform:scale(0.95); animation:cellInfoPop 0.25s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+@keyframes cellInfoPop { to { transform:scale(1) } }
+.cell-info-eyebrow { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--gold); letter-spacing:2px; text-transform:uppercase; }
+.cell-info-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; color:var(--dark); letter-spacing:1px; line-height:1.15; margin-top:8px; }
+.cell-info-detail { font-size:13px; color:#666; margin-top:10px; line-height:1.5; }
+.cell-info-close { position:absolute; top:8px; right:10px; width:28px; height:28px; border:none; border-radius:50%; background:rgba(0,0,0,0.06); color:var(--dark); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; }
+.cell-info-close:hover { background:rgba(0,0,0,0.12); }
 </style>
 </head>
 <body>
@@ -440,10 +463,33 @@ body {
 <!-- ==================== BOARD TAB ==================== -->
 <div id="tab-board" class="tab-content active">
 <div class="board-outer">
+
+<!-- Walk-the-Lap game controls (above the board) -->
+<div class="game-controls" id="outerGameControls">
+  <div class="game-controls-title">Walk the Lap</div>
+  <div class="game-controls-row">
+    <button type="button" class="game-btn primary" onclick="outerPlacePlayer()" id="outerPlaceBtn">Place Player</button>
+    <button type="button" class="game-btn" onclick="outerMovePlayer(1)" id="outerMoveBtn" disabled>Move &rarr;</button>
+  </div>
+  <div class="game-controls-row">
+    <button type="button" class="game-btn" onclick="outerRevealCurrent()" id="outerRevealBtn" disabled>Reveal Card</button>
+    <button type="button" class="game-btn" onclick="outerResetPlayer()" id="outerResetBtn" disabled>Reset</button>
+  </div>
+  <span class="game-position" id="outerGamePosition">Player not placed</span>
+</div>
+
 <div class="outside-label outside-top">E A R N</div>
 <div class="board-main-row">
 <div class="outside-label outside-side outside-left">L E A R N</div>
-<div class="board-frame"><div class="board">
+<div class="board-frame"><div class="board" id="outerBoardGrid">
+
+<!-- Player piece — L-1 Shield (walks the perimeter) -->
+<div class="player-piece hidden" id="outerPlayerPiece">
+  <svg viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 0.5 0.5 L 17.5 0.5 L 17.5 7 C 17.5 10.5 9 13.5 9 13.5 C 9 13.5 0.5 10.5 0.5 7 Z" fill="var(--find)" stroke="#d06c1a" stroke-width="0.5"/>
+    <text x="9" y="8.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="5" font-weight="800" fill="#fff">L-1</text>
+  </svg>
+</div>
 
 <!-- ===== TOP ROW ===== -->
 <div class="c cn" style="grid-row:1;grid-column:1;background:linear-gradient(135deg,#4a9fd5,#5DADE2);"><div class="n">CLIENT</div><div class="d">Blue Shield<br>Agreement</div></div>
@@ -1062,6 +1108,16 @@ body {
   <div class="tab" onclick="switchTab('lines')">IC Community</div>
 </div>
 
+<!-- Cell info modal (Reveal Card target) -->
+<div class="cell-info-modal" id="cellInfoModal" onclick="if(event.target.id==='cellInfoModal')closeCellInfo()">
+  <div class="cell-info-card">
+    <button type="button" class="cell-info-close" onclick="closeCellInfo()" aria-label="Close">&times;</button>
+    <div class="cell-info-eyebrow" id="cell-info-eyebrow">Title Deed</div>
+    <div class="cell-info-name" id="cell-info-name">Cell</div>
+    <div class="cell-info-detail" id="cell-info-detail">Detail</div>
+  </div>
+</div>
+
 <div class="footer">
   <div class="brands">The Concrete Protector &bull; Warrior Equipment &bull; Sanitred &bull; Scientific Concrete Polishing</div>
   TCP Incredible Dream Map &middot; v4.7 &middot; C-5-22-TCP &middot; Origin 2026-03-26 &middot; Updated 2026-05-22
@@ -1074,6 +1130,102 @@ function switchTab(tab) {
   document.getElementById('tab-' + tab).classList.add('active');
   event.target.classList.add('active');
 }
+
+/* ===== WALK-THE-LAP GAME (L-1 Shield walks the outer perimeter) ===== */
+(function() {
+  const POS_MAP = {
+    0:[11,11],
+    1:[11,10], 2:[11,9],  3:[11,8],  4:[11,7],  5:[11,6],  6:[11,5],  7:[11,4],  8:[11,3],  9:[11,2],
+    10:[11,1],
+    11:[10,1], 12:[9,1],  13:[8,1],  14:[7,1],  15:[6,1],  16:[5,1],  17:[4,1],  18:[3,1],  19:[2,1],
+    20:[1,1],
+    21:[1,2],  22:[1,3],  23:[1,4],  24:[1,5],  25:[1,6],  26:[1,7],  27:[1,8],  28:[1,9],  29:[1,10],
+    30:[1,11],
+    31:[2,11], 32:[3,11], 33:[4,11], 34:[5,11], 35:[6,11], 36:[7,11], 37:[8,11], 38:[9,11], 39:[10,11]
+  };
+  const grid     = document.getElementById('outerBoardGrid');
+  const piece    = document.getElementById('outerPlayerPiece');
+  const placeBtn = document.getElementById('outerPlaceBtn');
+  const moveBtn  = document.getElementById('outerMoveBtn');
+  const revealBtn= document.getElementById('outerRevealBtn');
+  const resetBtn = document.getElementById('outerResetBtn');
+  const posLabel = document.getElementById('outerGamePosition');
+  if (!grid || !piece) return;
+
+  let playerPos = -1;
+
+  function cellAtPos(pos) {
+    const [r, c] = POS_MAP[pos];
+    const candidates = grid.querySelectorAll('.c[style*="grid-row:' + r + ';"][style*="grid-column:' + c + ';"]');
+    for (const el of candidates) {
+      if (el.classList.contains('wm') || el.classList.contains('int') || el.classList.contains('e') || el.classList.contains('luxor-cell')) continue;
+      return el;
+    }
+    return null;
+  }
+
+  function cellTexts(cell) {
+    if (!cell) return null;
+    const n = cell.querySelector('.n');
+    const d = cell.querySelector('.d');
+    return {
+      name:   n ? n.textContent.trim().replace(/\s+/g, ' ') : '',
+      detail: d ? d.textContent.trim().replace(/\s+/g, ' ') : ''
+    };
+  }
+
+  function paintPiece() {
+    if (playerPos < 0) { piece.classList.add('hidden'); return; }
+    const [r, c] = POS_MAP[playerPos];
+    piece.classList.remove('hidden');
+    piece.style.gridRow = r;
+    piece.style.gridColumn = c;
+  }
+
+  function updateLabel() {
+    if (!posLabel) return;
+    if (playerPos < 0) { posLabel.textContent = 'Player not placed'; return; }
+    const texts = cellTexts(cellAtPos(playerPos));
+    const label = texts && texts.name ? (texts.detail ? texts.name + ' · ' + texts.detail : texts.name) : null;
+    posLabel.textContent = label ? ('On: ' + label) : ('On: pos ' + playerPos);
+  }
+
+  function updateButtons() {
+    const cell = (playerPos >= 0) ? cellAtPos(playerPos) : null;
+    const hasContent = !!(cell && cellTexts(cell).name);
+    if (placeBtn)  placeBtn.disabled  = playerPos >= 0;
+    if (moveBtn)   moveBtn.disabled   = playerPos < 0;
+    if (revealBtn) revealBtn.disabled = !hasContent;
+    if (resetBtn)  resetBtn.disabled  = playerPos < 0;
+  }
+
+  window.outerPlacePlayer = function() {
+    playerPos = 0;
+    paintPiece(); updateLabel(); updateButtons();
+  };
+  window.outerMovePlayer = function(delta) {
+    if (playerPos < 0) return;
+    playerPos = (playerPos + delta + 40) % 40;
+    paintPiece(); updateLabel(); updateButtons();
+  };
+  window.outerRevealCurrent = function() {
+    const cell = cellAtPos(playerPos);
+    const texts = cellTexts(cell);
+    if (!texts || !texts.name) return;
+    document.getElementById('cell-info-eyebrow').textContent = 'Title Deed · pos ' + playerPos;
+    document.getElementById('cell-info-name').textContent    = texts.name;
+    document.getElementById('cell-info-detail').textContent  = texts.detail || '';
+    document.getElementById('cellInfoModal').classList.add('open');
+  };
+  window.outerResetPlayer = function() {
+    playerPos = -1;
+    paintPiece(); updateLabel(); updateButtons();
+  };
+  window.closeCellInfo = function() {
+    document.getElementById('cellInfoModal').classList.remove('open');
+  };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCellInfo(); });
+})();
 
 /* ===== DRAG & DROP ENGINE ===== */
 (function() {
