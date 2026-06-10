@@ -494,12 +494,8 @@ body {
 <div class="board-frame"><div class="board" id="outerBoardGrid">
 
 <!-- Player piece — L-1 Shield (walks the perimeter) -->
-<div class="player-piece hidden" id="outerPlayerPiece">
-  <svg viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
-    <path d="M 0.5 0.5 L 17.5 0.5 L 17.5 7 C 17.5 10.5 9 13.5 9 13.5 C 9 13.5 0.5 10.5 0.5 7 Z" fill="var(--find)" stroke="#d06c1a" stroke-width="0.5"/>
-    <text x="9" y="8.5" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="5" font-weight="800" fill="#fff">L-1</text>
-  </svg>
-</div>
+<!-- Player piece - shield morphs: S -> Customer -> L-1 -> L-2 (green) -> L-3 -> L-4 -> L-5 (yellow) -> L-6 (red, layered) -> L-7 (blue, tall). JS rebuilds the SVG per stage. -->
+<div class="player-piece hidden" id="outerPlayerPiece"></div>
 
 <!-- ===== TL Corner: CERTIFIED L1 ===== -->
 <div class="c cn" style="grid-row:1;grid-column:1;background:linear-gradient(135deg,#d06c1a,#E67E22);"><div class="n" style="font-size:8px;">CERTIFIED</div><div class="d">L1<br>Product User<br>Orange</div></div>
@@ -1133,7 +1129,67 @@ function switchTab(tab) {
   const posLabel = document.getElementById('outerGamePosition');
   if (!grid || !piece) return;
 
-  let playerPos = -1;
+  let playerPos    = -1;
+  let currentStage = 0;
+
+  /* Sticky shield progression. Each stage triggers when the player reaches its
+     position threshold and never falls back. Visual rendering varies per stage:
+     - 'flat'    : standard L-1 Shield silhouette (36x28)
+     - 'layered' : L-6 multi-dimensional shield with stacked layers (44x34)
+     - 'tall'    : L-7 elongated tower (36x44) */
+  const STAGES = [
+    { atPos:0,  label:'S',        font:9,   y:10,  fill:'var(--find)',   stroke:'#d06c1a', w:36, h:28, shape:'flat', text:'#fff' },
+    { atPos:8,  label:'Customer', font:2.8, y:8.5, fill:'var(--find)',   stroke:'#d06c1a', w:36, h:28, shape:'flat', text:'#fff' },
+    { atPos:18, label:'L-1',      font:5,   y:8.5, fill:'var(--find)',   stroke:'#d06c1a', w:36, h:28, shape:'flat', text:'#fff' },
+    { atPos:30, label:'L-2',      font:5,   y:8.5, fill:'var(--green)',  stroke:'#1e8c4d', w:36, h:28, shape:'flat', text:'#fff' },
+    { atPos:32, label:'L-3',      font:5,   y:8.5, fill:'var(--yellow)', stroke:'#b8960c', w:36, h:28, shape:'flat', text:'#1a1a2e' },
+    { atPos:33, label:'L-4',      font:5,   y:8.5, fill:'var(--yellow)', stroke:'#b8960c', w:36, h:28, shape:'flat', text:'#1a1a2e' },
+    { atPos:34, label:'L-5',      font:5,   y:8.5, fill:'var(--yellow)', stroke:'#b8960c', w:36, h:28, shape:'flat', text:'#1a1a2e' },
+    { atPos:35, label:'L-6',      font:5,   y:8.5, fill:'var(--red)',    stroke:'#7a1f15', w:44, h:34, shape:'layered', text:'#fff' },
+    { atPos:37, label:'L-7',      font:4,   y:13,  fill:'var(--blue)',   stroke:'#3a8fc2', w:36, h:44, shape:'tall',    text:'#fff' }
+  ];
+
+  function buildShieldSVG(s) {
+    if (s.shape === 'flat') {
+      return '<svg viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M 0.5 0.5 L 17.5 0.5 L 17.5 7 C 17.5 10.5 9 13.5 9 13.5 C 9 13.5 0.5 10.5 0.5 7 Z" fill="' + s.fill + '" stroke="' + s.stroke + '" stroke-width="0.5"/>' +
+        '<text x="9" y="' + s.y + '" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="' + s.font + '" font-weight="800" fill="' + s.text + '">' + s.label + '</text>' +
+        '</svg>';
+    }
+    if (s.shape === 'layered') {
+      // L-6: stacked shields offset to create a multi-piece, 3D-looking emblem
+      return '<svg viewBox="0 0 22 17" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M 4 3 L 21 3 L 21 9.5 C 21 13 12.5 16 12.5 16 C 12.5 16 4 13 4 9.5 Z" fill="rgba(0,0,0,0.28)"/>' +
+        '<path d="M 2.5 1.5 L 19.5 1.5 L 19.5 8 C 19.5 11.5 11 14.5 11 14.5 C 11 14.5 2.5 11.5 2.5 8 Z" fill="' + s.stroke + '"/>' +
+        '<path d="M 0.5 0.5 L 17.5 0.5 L 17.5 7 C 17.5 10.5 9 13.5 9 13.5 C 9 13.5 0.5 10.5 0.5 7 Z" fill="' + s.fill + '" stroke="' + s.stroke + '" stroke-width="0.4"/>' +
+        '<path d="M 2.2 2 L 15.8 2 L 15.8 6 C 15.8 8.5 9 11 9 11 C 9 11 2.2 8.5 2.2 6 Z" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="0.35"/>' +
+        '<text x="9" y="' + s.y + '" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="' + s.font + '" font-weight="800" fill="' + s.text + '">' + s.label + '</text>' +
+        '</svg>';
+    }
+    if (s.shape === 'tall') {
+      // L-7: taller, tower-like shield
+      return '<svg viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M 0.5 0.5 L 17.5 0.5 L 17.5 14 C 17.5 18 9 21.5 9 21.5 C 9 21.5 0.5 18 0.5 14 Z" fill="' + s.fill + '" stroke="' + s.stroke + '" stroke-width="0.5"/>' +
+        '<path d="M 3 3 L 15 3 L 15 13 C 15 16 9 18.5 9 18.5 C 9 18.5 3 16 3 13 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.35"/>' +
+        '<text x="9" y="' + s.y + '" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="' + s.font + '" font-weight="800" fill="' + s.text + '">' + s.label + '</text>' +
+        '</svg>';
+    }
+    return '';
+  }
+
+  function recomputeStage(pos) {
+    // Walk thresholds top-down so a single sweep advances correctly without skipping.
+    for (let i = STAGES.length - 1; i >= 0; i--) {
+      if (pos >= STAGES[i].atPos && currentStage < i) { currentStage = i; return; }
+    }
+  }
+
+  function updateShield() {
+    const s = STAGES[currentStage];
+    piece.style.width  = s.w + 'px';
+    piece.style.height = s.h + 'px';
+    piece.innerHTML    = buildShieldSVG(s);
+  }
 
   function cellAtPos(pos) {
     const [r, c] = POS_MAP[pos];
@@ -1161,6 +1217,8 @@ function switchTab(tab) {
     piece.classList.remove('hidden');
     piece.style.gridRow = r;
     piece.style.gridColumn = c;
+    recomputeStage(playerPos);
+    updateShield();
   }
 
   function updateLabel() {
@@ -1168,7 +1226,8 @@ function switchTab(tab) {
     if (playerPos < 0) { posLabel.textContent = 'Player not placed'; return; }
     const texts = cellTexts(cellAtPos(playerPos));
     const label = texts && texts.name ? (texts.detail ? texts.name + ' · ' + texts.detail : texts.name) : null;
-    posLabel.textContent = label ? ('On: ' + label) : ('On: pos ' + playerPos);
+    const shieldTag = STAGES[currentStage].label + ' · ';
+    posLabel.textContent = shieldTag + (label ? ('On: ' + label) : ('On: pos ' + playerPos));
   }
 
   function updateButtons() {
@@ -1182,6 +1241,7 @@ function switchTab(tab) {
 
   window.outerPlacePlayer = function() {
     playerPos = 0;
+    currentStage = 0;
     paintPiece(); updateLabel(); updateButtons();
   };
   window.outerMovePlayer = function(delta) {
@@ -1193,13 +1253,14 @@ function switchTab(tab) {
     const cell = cellAtPos(playerPos);
     const texts = cellTexts(cell);
     if (!texts || !texts.name) return;
-    document.getElementById('cell-info-eyebrow').textContent = 'Title Deed · pos ' + playerPos;
+    document.getElementById('cell-info-eyebrow').textContent = STAGES[currentStage].label + ' · pos ' + playerPos;
     document.getElementById('cell-info-name').textContent    = texts.name;
     document.getElementById('cell-info-detail').textContent  = texts.detail || '';
     document.getElementById('cellInfoModal').classList.add('open');
   };
   window.outerResetPlayer = function() {
     playerPos = -1;
+    currentStage = 0;
     paintPiece(); updateLabel(); updateButtons();
   };
   window.closeCellInfo = function() {
