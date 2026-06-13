@@ -442,6 +442,8 @@ body {
 .game-btn.primary { background:var(--dark); color:#fff; border-color:var(--dark); }
 .game-btn.primary:hover:not(:disabled) { background:#000; }
 .game-position { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--dark); padding:8px 14px; background:#fff; border:1px solid rgba(0,0,0,0.1); border-radius:6px; letter-spacing:0.3px; min-width:240px; text-align:center; margin-top:6px; box-shadow:var(--shadow-sm); }
+/* Floating placement: controls sit in the dead center of the board so the whole perimeter stays visible while clicking. */
+.game-controls.game-controls-floating { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:50; margin:0; max-width:320px; background:rgba(250,248,244,0.94); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); box-shadow:0 8px 28px rgba(0,0,0,0.28), inset 0 0 0 1px rgba(0,0,0,0.06); }
 .cell-info-modal { position:fixed; inset:0; background:rgba(15,15,35,0.7); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; z-index:2000; padding:20px; animation:fadeIn 0.2s ease; }
 .cell-info-modal.open { display:flex; }
 .cell-info-card { width:300px; max-width:100%; background:#fff; border-radius:8px; padding:24px 28px 22px; box-shadow:0 24px 64px rgba(0,0,0,0.4); position:relative; font-family:'DM Sans',sans-serif; text-align:center; transform:scale(0.95); animation:cellInfoPop 0.25s cubic-bezier(0.34,1.56,0.64,1) forwards; }
@@ -464,8 +466,13 @@ body {
 <div id="tab-board" class="tab-content active">
 <div class="board-outer">
 
-<!-- Walk-the-Lap game controls (above the board) -->
-<div class="game-controls" id="outerGameControls">
+<div class="outside-label outside-top">E A R N</div>
+<div class="board-main-row">
+<div class="outside-label outside-side outside-left">L E A R N</div>
+<div class="board-frame">
+
+<!-- Walk-the-Lap controls — floats in the center of the board so the whole perimeter stays visible -->
+<div class="game-controls game-controls-floating" id="outerGameControls">
   <div class="game-controls-title">Walk the Lap</div>
   <div class="game-controls-row">
     <button type="button" class="game-btn primary" onclick="outerPlacePlayer()" id="outerPlaceBtn">Place Player</button>
@@ -478,10 +485,7 @@ body {
   <span class="game-position" id="outerGamePosition">Player not placed</span>
 </div>
 
-<div class="outside-label outside-top">E A R N</div>
-<div class="board-main-row">
-<div class="outside-label outside-side outside-left">L E A R N</div>
-<div class="board-frame"><div class="board" id="outerBoardGrid">
+<div class="board" id="outerBoardGrid">
 
 <!-- Player piece — L-1 Shield (walks the perimeter) -->
 <div class="player-piece hidden" id="outerPlayerPiece">
